@@ -9,7 +9,6 @@ export default class Home extends React.Component {
         <Filter
           formList={filterList}
         />
-        <div>Home就是我</div>
       </div>
     )
   }

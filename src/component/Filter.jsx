@@ -33,7 +33,7 @@ class Filter extends Component {
 
   handleSearch = e => {
     e.preventDefault();
-    this.props.form.validateFields((err, values) => {
+    this.props.form.validateFields((values) => {
       console.log('Received values of form: ', values);
     });
   };
@@ -43,8 +43,6 @@ class Filter extends Component {
   };
 
   render() {
-
-    console.log('file', this.props.formList)
     return (
       <Form className="ant-advanced-search-form" onSubmit={this.handleSearch}>
         <Row gutter={24}>{this.getFieldsValues()}</Row>
