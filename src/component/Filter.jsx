@@ -1,60 +1,67 @@
 import React, { Component } from 'react';
-import { Form, Input, Button, Checkbox } from 'antd';
+import { Form, Row, Col, Input, Button, Icon } from 'antd';
 
-const layout = {
-  labelCol: { span: 8 },
-  wrapperCol: { span: 16 },
-};
-const tailLayout = {
-  wrapperCol: { offset: 8, span: 16 },
-};
+class Filter extends Component {
 
+  constructor(props) {
+    super(props)
+    this.state = {}
+  }
 
+  getFields() {
+    const count = this.state.expand ? 10 : 6;
+    const { getFieldDecorator } = this.props.form;
+    const children = [];
+    for (let i = 0; i < 10; i++) {
+      children.push(
+        <Col span={8} key={i} style={{ display: i < count ? 'block' : 'none' }}>
+          <Form.Item label={`Field ${i}`}>
+            {getFieldDecorator(`field-${i}`, {
+              rules: [
+                {
+                  required: true,
+                  message: 'Input something!',
+                },
+              ],
+            })(<Input placeholder="placeholder" />)}
+          </Form.Item>
+        </Col>,
+      );
+    }
+    return children;
+  }
 
-export default class Filter extends Component {
+  handleSearch = e => {
+    e.preventDefault();
+    this.props.form.validateFields((err, values) => {
+      console.log('Received values of form: ', values);
+    });
+  };
+
+  handleReset = () => {
+    this.props.form.resetFields();
+  };
 
   render() {
-    const onFinish = values => {
-      console.log('Success:', values);
-    };
 
-    const onFinishFailed = errorInfo => {
-      console.log('Failed:', errorInfo);
-    };
+    const { getFieldDecorator } = this.props.form;
+
     return (
-      <Form
-        {...layout}
-        name="basic"
-        initialValues={{ remember: true }}
-        onFinish={onFinish}
-        onFinishFailed={onFinishFailed}
-      >
-        <Form.Item
-          label="Username"
-          name="username"
-          rules={[{ required: true, message: 'Please input your username!' }]}
-        >
-          <Input />
-        </Form.Item>
-
-        <Form.Item
-          label="Password"
-          name="password"
-          rules={[{ required: true, message: 'Please input your password!' }]}
-        >
-          <Input.Password />
-        </Form.Item>
-
-        <Form.Item {...tailLayout} name="remember" valuePropName="checked">
-          <Checkbox>Remember me</Checkbox>
-        </Form.Item>
-
-        <Form.Item {...tailLayout}>
-          <Button type="primary" htmlType="submit">
-            Submit
-        </Button>
-        </Form.Item>
+      <Form className="ant-advanced-search-form" onSubmit={this.handleSearch}>
+        <Row gutter={24}>{this.getFields()}</Row>
+        <Row>
+          <Col span={24} style={{ textAlign: 'right' }}>
+            <Button type="primary" htmlType="submit">
+              Search
+            </Button>
+            <Button style={{ marginLeft: 8 }} onClick={this.handleReset}>
+              Clear
+            </Button>
+          </Col>
+        </Row>
       </Form>
-    )
+    );
   }
-} 
+}
+const WrappedNormalLoginForm = Form.create({ name: 'advanced_search' })(Filter);
+export default WrappedNormalLoginForm
