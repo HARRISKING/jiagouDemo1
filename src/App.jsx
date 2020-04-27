@@ -5,6 +5,7 @@ import {
   Route,
   Link
 } from "react-router-dom";
+import 'antd/dist/antd.css'
 
 import Home from './project/home'
 import About from './project/about'
