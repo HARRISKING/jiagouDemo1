@@ -8,13 +8,13 @@ class Filter extends Component {
     this.state = {}
   }
 
-  getFields() {
-    const count = this.state.expand ? 10 : 6;
+  // 获取数据
+  getFieldsValues() {
     const { getFieldDecorator } = this.props.form;
     const children = [];
     for (let i = 0; i < 10; i++) {
       children.push(
-        <Col span={8} key={i} style={{ display: i < count ? 'block' : 'none' }}>
+        <Col span={4} key={i} >
           <Form.Item label={`Field ${i}`}>
             {getFieldDecorator(`field-${i}`, {
               rules: [
@@ -45,10 +45,11 @@ class Filter extends Component {
   render() {
 
     const { getFieldDecorator } = this.props.form;
+    console.log('getFieldDecorator', getFieldDecorator)
 
     return (
       <Form className="ant-advanced-search-form" onSubmit={this.handleSearch}>
-        <Row gutter={24}>{this.getFields()}</Row>
+        <Row gutter={24}>{this.getFieldsValues()}</Row>
         <Row>
           <Col span={24} style={{ textAlign: 'right' }}>
             <Button type="primary" htmlType="submit">
