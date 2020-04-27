@@ -12,7 +12,6 @@ class Filter extends Component {
   getFieldsValues() {
     const { getFieldDecorator } = this.props.form;
     const children = [];
-    console.log('formList====', this.props.formList)
     this.props.formList.forEach(element => {
       children.push(
         <Col span={4} key={element.name} >
