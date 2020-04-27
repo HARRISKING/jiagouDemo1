@@ -52,10 +52,10 @@ class Filter extends Component {
         <Row>
           <Col span={24} style={{ textAlign: 'right' }}>
             <Button type="primary" htmlType="submit">
-              Search
+              查询
             </Button>
             <Button style={{ marginLeft: 8 }} onClick={this.handleReset}>
-              Clear
+              重置
             </Button>
           </Col>
         </Row>
