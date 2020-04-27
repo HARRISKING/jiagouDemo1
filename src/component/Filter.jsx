@@ -12,11 +12,12 @@ class Filter extends Component {
   getFieldsValues() {
     const { getFieldDecorator } = this.props.form;
     const children = [];
-    for (let i = 0; i < 10; i++) {
+    console.log('formList====', this.props.formList)
+    this.props.formList.forEach(element => {
       children.push(
-        <Col span={4} key={i} >
-          <Form.Item label={`Field ${i}`}>
-            {getFieldDecorator(`field-${i}`, {
+        <Col span={4} key={element.name} >
+          <Form.Item label={element.label}>
+            {getFieldDecorator(element.name, {
               rules: [
                 {
                   required: true,
@@ -27,7 +28,7 @@ class Filter extends Component {
           </Form.Item>
         </Col>,
       );
-    }
+    });
     return children;
   }
 
@@ -44,9 +45,7 @@ class Filter extends Component {
 
   render() {
 
-    const { getFieldDecorator } = this.props.form;
-    console.log('getFieldDecorator', getFieldDecorator)
-
+    console.log('file', this.props.formList)
     return (
       <Form className="ant-advanced-search-form" onSubmit={this.handleSearch}>
         <Row gutter={24}>{this.getFieldsValues()}</Row>
